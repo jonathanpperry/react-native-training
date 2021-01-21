@@ -1,27 +1,52 @@
-import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useState } from "react";
 import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 
 export default function App() {
+  const [enteredGoal, setEnteredGoal] = useState("");
+  const [courseGoals, setCourseGoals] = useState([]);
+
+  const goalInputHandler = (enteredText) => {
+    setEnteredGoal(enteredText);
+  };
+
+  const addGoalHandler = () => {
+    setCourseGoals((currentGoals) => [...currentGoals, enteredGoal]);
+  };
+
   return (
-    <View>
-      <View style={{ padding: 50 }}>
+    <View style={styles.screen}>
+      <View style={styles.inputContainer}>
         <TextInput
+          style={styles.input}
           placeholder="Course Goal"
-          style={{ borderColor: "black", borderWidth: 1, padding: 10 }}
+          onChangeText={goalInputHandler}
+          value={enteredGoal}
         />
-        <Button title="ADD" />
+        <Button title="ADD" onPress={addGoalHandler} />
       </View>
-      <View></View>
+      {/* Output list of all goals */}
+      <View>
+        {courseGoals.map((goal) => (
+          <Text key={goal}>{goal}</Text>
+        ))}
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
+  screen: {
+    padding: 50,
+  },
+  inputContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
-    justifyContent: "center",
+  },
+  input: {
+    width: "80%",
+    borderColor: "black",
+    borderWidth: 1,
+    padding: 10,
   },
 });
