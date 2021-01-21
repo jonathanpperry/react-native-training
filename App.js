@@ -32,7 +32,7 @@ export default function App() {
       <GoalInput onAddGoal={addGoalHandler} />
       {/* Output list of all goals */}
       <FlatList
-        keyExtractor={(item, index) => item.key}
+        keyExtractor={(item, index) => item.id}
         data={courseGoals}
         renderItem={(itemData) => (
           <GoalItem
